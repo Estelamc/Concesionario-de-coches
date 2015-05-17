@@ -1,14 +1,22 @@
 package pgn.examenMarzo.concesionarioCoches;
 
+
 /**
- * Enumeraci&oacute;n que contiene los modelos disponibles que hay para un coche
- * 
+ * Crea otra versi&oacute;n de Concesionario de coches, ahora mediante excepciones. Las excepciones
+ * que has de lanzar ser&aacute;n:
+ * 		En coche:
+ * 			MatriculaNoValidaException
+ * 			ColorNoValidoException
+ * 			ModeloNoValidoException
+ * 		En Concesionario:
+ * 			CocheNoExisteException
+ *			CocheYaExisteException
+ *
  * @author Estela Mu&ntilde;oz
  * @author Pedro J. Ramos
  * @version 1.0
  *
  */
-
 public enum Modelo {
 
 	/**
@@ -41,14 +49,15 @@ public enum Modelo {
 	TOLEDO(Marca.SEAT);
 
 	/**
-	 * Marca del coche 
+	 * Marca del coche
 	 */
 	private Marca marca;
-	
+
 	/**
 	 * Constructor que crea el modelo del coche
 	 * 
-	 * @param marca Marca del coche
+	 * @param marca
+	 *            Marca del coche
 	 */
 	private Modelo(Marca marca) {
 		this.marca = marca;
@@ -80,8 +89,8 @@ public enum Modelo {
 	private static final Modelo[] VALUES = Modelo.values();
 
 	/**
-	 * Devuelve las opciones del men&uacute;, 
-	 * que contienen los modelos disponibles para un coche
+	 * Devuelve las opciones del men&uacute;, que contienen los modelos
+	 * disponibles para un coche
 	 * 
 	 * @return Opciones del men&uacute;
 	 */
@@ -96,7 +105,7 @@ public enum Modelo {
 	}
 
 	/**
-	 * Devuelve un array que contiene los modelos del coche 
+	 * Devuelve un array que contiene los modelos del coche
 	 * 
 	 * @return Modelos del coche
 	 */

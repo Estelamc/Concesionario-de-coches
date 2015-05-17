@@ -1,22 +1,30 @@
 package pgn.examenMarzo.concesionarioCoches;
 
 /**
- * Enumeraci&oacute;n que contiene tres colores
- * 
+ * Crea otra versi&oacute;n de Concesionario de coches, ahora mediante excepciones. Las excepciones
+ * que has de lanzar ser&aacute;n:
+ * 		En coche:
+ * 			MatriculaNoValidaException
+ * 			ColorNoValidoException
+ * 			ModeloNoValidoException
+ * 		En Concesionario:
+ * 			CocheNoExisteException
+ *			CocheYaExisteException
+ *
  * @author Estela Mu&ntilde;oz
  * @author Pedro J. Ramos
  * @version 1.0
- * 
+ *
  */
 public enum Color {
 	/**
 	 * Color plateado
 	 */
-	PLATA, 
+	PLATA,
 	/**
 	 * Color rojo
 	 */
-	ROJO, 
+	ROJO,
 	/**
 	 * Color azul
 	 */
@@ -27,8 +35,8 @@ public enum Color {
 	private static final Color[] VALUES = Color.values();
 
 	/**
-	 * Devuelve las opciones del men&uacute;, 
-	 * que contienen los colores disponibles para un coche
+	 * Devuelve las opciones del men&uacute;, que contienen los colores
+	 * disponibles para un coche
 	 * 
 	 * @return Opciones del men&uacute;
 	 */
@@ -41,9 +49,9 @@ public enum Color {
 		opcionesMenu[i] = "Salir";
 		return opcionesMenu;
 	}
-	
+
 	/**
-	 * Devuelve un array que contiene los colores 
+	 * Devuelve un array que contiene los colores
 	 * 
 	 * @return Array de los colores
 	 */

@@ -2,16 +2,22 @@ package pgn.examenMarzo.concesionarioCoches;
 
 import pgn.examenMarzo.utiles.Menu;
 import pgn.examenMarzo.utiles.Teclado;
-import pgn.examenMarzo.concesionarioCoches.Color;
-import pgn.examenMarzo.concesionarioCoches.Modelo;
 
-/** 
- * Gestiona el concesionario de coches
- * 
+/**
+ * Crea otra versi&oacute;n de Concesionario de coches, ahora mediante excepciones. Las excepciones
+ * que has de lanzar ser&aacute;n:
+ * 		En coche:
+ * 			MatriculaNoValidaException
+ * 			ColorNoValidoException
+ * 			ModeloNoValidoException
+ * 		En Concesionario:
+ * 			CocheNoExisteException
+ *			CocheYaExisteException
+ *
  * @author Estela Mu&ntilde;oz
  * @author Pedro J. Ramos
  * @version 1.0
- * 
+ *
  */
 public class TestConcesionario {
 	/**
@@ -21,19 +27,19 @@ public class TestConcesionario {
 			"Alta Coche", "Baja Coche", "Mostrar Coche",
 			"Mostrar concesionario", "Contar coches del concesionario",
 			"Mostrar coches de un color", "Salir" });
-	
+
 	/**
 	 * Men&uacute; que muestra los colores disponibles
 	 */
 	private static Menu menuColores = new Menu("Colores de los coches",
 			Color.generarOpcionesMenu());
-	
+
 	/**
 	 * Men&uacute; que muestra los modelos disponibles
 	 */
 	private static Menu menuModelos = new Menu("Modelos de los coches",
 			Modelo.generarOpcionesMenu());
-	
+
 	/**
 	 * Concesionario de coches
 	 */
@@ -42,7 +48,8 @@ public class TestConcesionario {
 	/**
 	 * Gestiona el men&uacute; para realizar acciones con el concesionario
 	 * 
-	 * @param args Argumentos utilizados en la ejecuci&oacute;n del programa
+	 * @param args
+	 *            Argumentos utilizados en la ejecuci&oacute;n del programa
 	 */
 	public static void main(String[] args) {
 		do {
@@ -78,34 +85,41 @@ public class TestConcesionario {
 	 * Muestra el coche si existe o sino informa de que no existe
 	 */
 	private static void getCoche() {
-		Coche coche = concesionario.get(Teclado
-				.leerCadena("Introduce la matrícula"));
-		if (coche == null)
-			System.out.println("No existe el coche en el concesionario.");
-		else
-			System.out.println(coche);
+		Coche coche = null;
+		try {
+			coche = concesionario.get(Teclado.leerCadena("Introduce la matrícula"));
+		} catch (CocheNoExisteException | MatriculaNoValidaException e) {
+			e.printStackTrace();
+		}
+		System.out.println(coche);
 	}
 
 	/**
 	 * Muestra si el coche se ha eliminado o no
 	 */
 	private static void eliminarCoche() {
-		if (concesionario
-				.eliminar(Teclado.leerCadena("Introduce la matrícula")))
-			System.out.println("Coche eliminado");
-		else
-			System.out.println("No se ha podido eliminar");
+		try {
+			concesionario.eliminar(Teclado.leerCadena("Introduce la matrícula"));
+		} catch (MatriculaNoValidaException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Coche eliminado");
 	}
 
 	/**
 	 * Muestra si el coche se ha a&ntilde;adido o no
 	 */
 	private static void annadirCoche() {
-		if (concesionario.annadir(Teclado.leerCadena("Introduce la matrícula"),
-				pedirColor(), pedirModelo()))
-			System.out.println("Coche añadido con éxito");
-		else
-			System.out.println("No se ha podido añadir");
+		try {
+			concesionario.annadir(Teclado.leerCadena("Introduce la matrícula"),
+					pedirColor(), pedirModelo());
+		} catch (MatriculaNoValidaException | ColorNoValidoException
+				| ModeloNoValidoException | CocheYaExisteException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Coche añadido con éxito");
+
 	}
 
 	/**
