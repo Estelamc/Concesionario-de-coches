@@ -2,19 +2,27 @@ package pgn.examenMarzo.concesionarioCoches;
 
 import java.util.regex.Pattern;
 
-/** 
- * Crea y manipula un coche
- * 
+/**
+ * Crea otra versi&oacute;n de Concesionario de coches, ahora mediante excepciones. 
+ * Las excepciones que has de lanzar ser&aacute;n:
+ * 		En coche:
+ * 			MatriculaNoValidaException
+ * 			ColorNoValidoException
+ * 			ModeloNoValidoException
+ * 		En Concesionario:
+ * 			CocheNoExisteException
+ *			CocheYaExisteException
+ *
  * @author Estela Mu&ntilde;oz
  * @author Pedro J. Ramos
  * @version 1.0
- * 
+ *
  */
 
 public class Coche {
 	/**
-	 * Matr&iacute;cula del coche, 
-	 * que es un identificador inequ&iacute;voco de &eacute;ste.
+	 * Matr&iacute;cula del coche, que es un identificador inequ&iacute;voco de
+	 * &eacute;ste.
 	 */
 	private String matricula;
 	/**
@@ -32,14 +40,21 @@ public class Coche {
 			.compile("^\\d{4}[ -]?[[B-Z]&&[^QEIOU]]{3}$");
 
 	/**
-     * Constructor para crear un coche
-     *
-     * @param matricula Matr&iacute;cula del coche 
-     * @param color Color del coche
-     * @param modelo Modelo del coche
-     */
-	private Coche(String matricula, Color color, Modelo modelo) {
-		super();
+	 * Constructor para crear un coche
+	 *
+	 * @param matricula
+	 *            Matr&iacute;cula del coche
+	 * @param color
+	 *            Color del coche
+	 * @param modelo
+	 *            Modelo del coche
+	 * @throws MatriculaNoValidaException
+	 * @throws ColorNoValidoException
+	 * @throws ModeloNoValidoException
+	 */
+	public Coche(String matricula, Color color, Modelo modelo)
+			throws MatriculaNoValidaException, ColorNoValidoException,
+			ModeloNoValidoException {
 		setMatricula(matricula);
 		setColor(color);
 		setModelo(modelo);
@@ -48,45 +63,19 @@ public class Coche {
 	/**
 	 * Constructor que crea un coche s&oacute;lo con la matr&iacute;cula
 	 * 
-	 * @param matricula Matr&iacute;cula del coche
+	 * @param matricula
+	 *            Matr&iacute;cula del coche
+	 * @throws MatriculaNoValidaException
 	 */
-	private Coche(String matricula) {
+	public Coche(String matricula) throws MatriculaNoValidaException {
 		setMatricula(matricula);
-	}
-
-	/**
-	 * Crea un coche
-	 * 
-	 * @param matricula Matr&iacute;cula del coche
-	 * @param color Color del coche
-	 * @param modelo Modelo del coche
-	 * 
-	 * @return El coche si la matr&iacute;cula es v&aacute;lida 
-	 * y el color y el modelo no son nulos, o null en caso contrario
-	 */
-	static Coche instanciarCoche(String matricula, Color color, Modelo modelo) {
-		if (esValida(matricula) && color != null && modelo != null)
-			return new Coche(matricula, color, modelo);
-		return null;
-	}
-
-	/**
-	 * Crea un coche s&oacute;lo con la matr&iacute;cula
-	 * 
-	 * @param matricula Matr&iacute;cula del coche
-	 * 
-	 * @return El coche si la matr&iacute;cula es v&aacute;lida o null sino
-	 */
-	static Coche instanciarCoche(String matricula) {
-		if (esValida(matricula))
-			return new Coche(matricula);
-		return null;
 	}
 
 	/**
 	 * Comprueba si la matr&iacute;cula es v&aacute;lida
 	 * 
-	 * @param matricula Matr&iacute;cula del coche
+	 * @param matricula
+	 *            Matr&iacute;cula del coche
 	 * 
 	 * @return True si la matr&iacute;cula es v&aacute;lida o false sino
 	 */
@@ -97,10 +86,16 @@ public class Coche {
 	/**
 	 * Modifica la matr&iacute;cula del coche
 	 * 
-	 * @param matricula Matr&iacute;cula del coche
+	 * @param matricula
+	 *            Matr&iacute;cula del coche
+	 * @throws MatriculaNoValidaException
 	 */
-	private void setMatricula(String matricula) {
-		this.matricula = matricula;
+	private void setMatricula(String matricula)
+			throws MatriculaNoValidaException {
+		if (esValida(matricula))
+			this.matricula = matricula;
+		else
+			throw new MatriculaNoValidaException("La matricula no es válida");
 	}
 
 	/**
@@ -115,27 +110,37 @@ public class Coche {
 	/**
 	 * Modifica el color del coche
 	 * 
-	 * @param color Color del coche
+	 * @param color
+	 *            Color del coche
+	 * @throws ColorNoValidoException
 	 */
-	private void setColor(Color color) {
-		this.color = color;
+	private void setColor(Color color) throws ColorNoValidoException {
+		if (color != null)
+			this.color = color;
+		else
+			throw new ColorNoValidoException("El color no es válido");
 	}
 
 	/**
 	 * Modifica el modelo del coche
 	 * 
-	 * @param modelo Modelo del coche
+	 * @param modelo
+	 *            Modelo del coche
+	 * @throws ModeloNoValidoException
 	 */
-	private void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	private void setModelo(Modelo modelo) throws ModeloNoValidoException {
+		if (modelo != null)
+			this.modelo = modelo;
+		else
+			throw new ModeloNoValidoException("El modelo no es válido");
 	}
 
 	/**
-	 * Calcula un valor num&eacute;rico &uacute;nico que
-	 * definie a un coche en base a su matr&iacute;cula
+	 * Calcula un valor num&eacute;rico &uacute;nico que definie a un coche en
+	 * base a su matr&iacute;cula
 	 * 
-	 * @return Valor n&uacute;merico &uacute;nico para un 
-	 * coche de matr&iacute;cula concreta 
+	 * @return Valor n&uacute;merico &uacute;nico para un coche de
+	 *         matr&iacute;cula concreta
 	 */
 	@Override
 	public int hashCode() { // Se usa en el remove() de forma automática
@@ -149,13 +154,14 @@ public class Coche {
 	/**
 	 * Compara si dos coches tienen la misma matr&iacute;cula
 	 * 
-	 * @param obj Objeto a comparar
+	 * @param obj
+	 *            Objeto a comparar
 	 * 
-	 * @return true si los coches coinciden 
-	 * en la matr&iacute;cula o false sino
+	 * @return true si los coches coinciden en la matr&iacute;cula o false sino
 	 */
 	@Override
-	public boolean equals(Object obj) { // Se usa en el contains() de forma automática
+	public boolean equals(Object obj) { // Se usa en el contains() de forma
+										// automática
 		if (this == obj)
 			return true;
 		if (obj == null)

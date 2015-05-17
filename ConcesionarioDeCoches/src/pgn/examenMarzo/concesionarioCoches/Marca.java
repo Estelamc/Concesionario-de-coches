@@ -1,7 +1,16 @@
 package pgn.examenMarzo.concesionarioCoches;
+
 /**
- * Enumeraci&oacute;n que contiene las marcas disponibles que hay para un coche
- * 
+ * Crea otra versi&oacute;n de Concesionario de coches, ahora mediante excepciones. Las excepciones
+ * que has de lanzar ser&aacute;n:
+ * 		En coche:
+ * 			MatriculaNoValidaException
+ * 			ColorNoValidoException
+ * 			ModeloNoValidoException
+ * 		En Concesionario:
+ * 			CocheNoExisteException
+ *			CocheYaExisteException
+ *
  * @author Estela Mu&ntilde;oz
  * @author Pedro J. Ramos
  * @version 1.0
@@ -11,7 +20,7 @@ public enum Marca {
 	/**
 	 * Marca BMW
 	 */
-	BMW, 
+	BMW,
 	/**
 	 * Marca SEAT
 	 */
