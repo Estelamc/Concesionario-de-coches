@@ -3,8 +3,7 @@ package pgn.examenMarzo.utiles;
 /**
  * Crea y gestiona un men&uacute;
  * 
- * @author Estela Mu&ntilde;oz
- * @author Pedro J. Ramos
+ * @author Estela Mu&ntilde;oz Cord&oacute;n
  * @version 1.0
  * 
  */
